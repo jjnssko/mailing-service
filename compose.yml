@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+
+  nginx:
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    volumes:
+      - "./:/var/www/html"
+    build:
+      context: .
+      dockerfile: docker/nginx.dockerfile
+    ports:
+      - "${NGINX_PORT}:8080"
+      - "${NGINX_SSL_PORT}:443"
+
+  php:
+    container_name: ${COMPOSE_PROJECT_NAME}_php-fpm
+    build:
+      context: .
+      dockerfile: docker/php.dockerfile
+    environment:
+      - "PHP_MODE=development"
+      - "PHP_XDEBUG=1"
+      - "PHP_OPCACHE=0"
+      - "MYSQL_HOST=mysql"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+    volumes:
+      - ./:/var/www/html
+
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+    image: mysql:8.0
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+    volumes:
+      - "mailing_service:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+
+  adminer:
+    container_name: ${COMPOSE_PROJECT_NAME}_adminer
+    image: library/adminer:latest
+    environment:
+      - "PHP_UPLOAD_LIMIT=512M"
+    ports:
+      - "${ADMINER_PORT}:8080"
+
+  mailhog:
+    container_name: ${COMPOSE_PROJECT_NAME}_mailhog
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  mailing_service:
+    external: true

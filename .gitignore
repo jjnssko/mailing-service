@@ -1,0 +1,95 @@
+###> common ###
+.php-cs-fixer.cache
+composer.phar
+docker-compose.override.*
+
+/.well-known/
+/ignored/
+/private/
+/storage
+###< common ###
+
+###> editor ###
+/.idea/
+/.vscode/
+/.settings/
+/nbproject/
+jsconfig.json
+###< editor ###
+
+###> os ###
+*~
+*.DS_Store
+._*
+.AppleDouble
+.directory
+.fuse_hidden*
+.LSOverride
+.nfs*
+.Trash-*
+$RECYCLE.BIN/
+Desktop.ini
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db
+###< os ###
+
+###> codeception/codeception ###
+/tests/_data/
+/tests/_output/
+/tests/_support/_generated
+###< codeception/codeception ###
+
+###> cypress ###
+/cypress/downloads/
+/cypress/screenshots/
+/cypress/videos/
+###< cypress ###
+
+###> symfony/framework-bundle ###
+/.env*
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+###> liip/imagine-bundle ###
+/public/media/*
+###< liip/imagine-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> project ###
+credentials.json
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/contracts/
+public/uploads/contracts/*
+!public/uploads/contracts/.gitkeep
+crontab
+###< project ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
