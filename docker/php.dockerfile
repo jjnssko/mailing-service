@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.2-fpm
 
 WORKDIR /var/www/html
 
@@ -12,8 +12,6 @@ RUN npm install -g yarn
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync \
     && install-php-extensions gd intl mysqli opcache pdo_mysql sysvsem xdebug zip
-
-COPY /docker/xdebug.ini "$PHP_INI_DIR/conf.d/99-xdebug.ini"
 
 ## CONFIGURE
 ENV TZ=Europe/Prague

@@ -18,23 +18,17 @@ services:
     build:
       context: .
       dockerfile: docker/php.dockerfile
-    environment:
-      - "PHP_MODE=development"
-      - "PHP_XDEBUG=1"
-      - "PHP_OPCACHE=0"
-      - "MYSQL_HOST=mysql"
-      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
-      - "MYSQL_USER=${MYSQL_USER}"
-      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+    env_file:
+      - .env
     volumes:
       - ./:/var/www/html
+      - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
 
   mysql:
     container_name: ${COMPOSE_PROJECT_NAME}_mysql
     image: mysql:8.0
-    environment:
-      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
-      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+    env_file:
+      - .env
     volumes:
       - "mailing_service:/var/lib/mysql"
     ports:
@@ -43,15 +37,14 @@ services:
   adminer:
     container_name: ${COMPOSE_PROJECT_NAME}_adminer
     image: library/adminer:latest
-    environment:
-      - "PHP_UPLOAD_LIMIT=512M"
+    env_file:
+      - .env
     ports:
       - "${ADMINER_PORT}:8080"
 
   mailhog:
     container_name: ${COMPOSE_PROJECT_NAME}_mailhog
     image: mailhog/mailhog
-    restart: always
     ports:
       - "1025:1025"
       - "8025:8025"
