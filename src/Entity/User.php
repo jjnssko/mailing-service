@@ -67,22 +67,22 @@ class User
         return $this->userTokens;
     }
 
-    public function addType(UserToken $type): static
+    public function addType(UserToken $userToken): static
     {
-        if (!$this->userTokens->contains($type)) {
-            $this->userTokens->add($type);
-            $type->setUser($this);
+        if (!$this->userTokens->contains($userToken)) {
+            $this->userTokens->add($userToken);
+            $userToken->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeType(UserToken $type): static
+    public function removeType(UserToken $userToken): static
     {
-        if ($this->userTokens->removeElement($type)) {
+        if ($this->userTokens->removeElement($userToken)) {
             // set the owning side to null (unless already changed)
-            if ($type->getUser() === $this) {
-                $type->setUser(null);
+            if ($userToken->getUser() === $this) {
+                $userToken->setUser(null);
             }
         }
 

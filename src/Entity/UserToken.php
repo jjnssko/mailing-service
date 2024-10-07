@@ -116,22 +116,22 @@ class UserToken
         return $this->emailReceivers;
     }
 
-    public function addEmailRecieverId(EmailReceivers $emailRecieverId): static
+    public function addEmailReceiverId(EmailReceivers $emailReceivers): static
     {
-        if (!$this->emailReceivers->contains($emailRecieverId)) {
-            $this->emailReceivers->add($emailRecieverId);
-            $emailRecieverId->setUserToken($this);
+        if (!$this->emailReceivers->contains($emailReceivers)) {
+            $this->emailReceivers->add($emailReceivers);
+            $emailReceivers->setUserToken($this);
         }
 
         return $this;
     }
 
-    public function removeEmailRecieverId(EmailReceivers $emailRecieverId): static
+    public function removeEmailReceiverId(EmailReceivers $emailReceivers): static
     {
-        if ($this->emailReceivers->removeElement($emailRecieverId)) {
+        if ($this->emailReceivers->removeElement($emailReceivers)) {
             // set the owning side to null (unless already changed)
-            if ($emailRecieverId->getUserToken() === $this) {
-                $emailRecieverId->setUserToken(null);
+            if ($emailReceivers->getUserToken() === $this) {
+                $emailReceivers->setUserToken(null);
             }
         }
 

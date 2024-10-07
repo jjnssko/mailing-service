@@ -7,19 +7,15 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20241006152707 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Initialize DB structure';
     }
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE email_process_log (id INT AUTO_INCREMENT NOT NULL, email_receiver_id INT DEFAULT NULL, sender_email VARCHAR(255) NOT NULL, subject LONGTEXT NOT NULL, body LONGTEXT NOT NULL, response_status VARCHAR(255) NOT NULL, error_message LONGTEXT DEFAULT NULL, INDEX IDX_A53D0B31DB939101 (email_receiver_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE email_receivers (id INT AUTO_INCREMENT NOT NULL, user_token_id INT NOT NULL, email VARCHAR(255) NOT NULL, INDEX IDX_D54DEDDA15303B9 (user_token_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -31,7 +27,6 @@ final class Version20241006152707 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE email_process_log DROP FOREIGN KEY FK_A53D0B31DB939101');
         $this->addSql('ALTER TABLE email_receivers DROP FOREIGN KEY FK_D54DEDDA15303B9');
         $this->addSql('ALTER TABLE user_token DROP FOREIGN KEY FK_BDF55A63A76ED395');
