@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="wrapper">
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="col-md-4 col-md-push-4">
+          <div class="box box-info">
+            <div class="box-header with-border"><h3>Log in</h3></div>
+            {# {% for alert in alerts %}
+                <div class="alert alert-danger">
+                  <p> #}{# error #}{# </p>
+                </div>
+              {% endfor %} #}
+            <form id="login-form" class="form-horizontal" method="post" role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="email" class="col-sm-2">E-Mail</label>
+                  <div class="col-xs-12">
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="col-sm-2">Password</label>
+                  <div class="col-xs-12">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
+                <button class="btn btn-success pull-right" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+    {% include 'footer.html.twig' %}
+  </div>
+{% endblock %}
