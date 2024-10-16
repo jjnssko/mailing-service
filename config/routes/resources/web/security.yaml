@@ -1,0 +1,9 @@
+login:
+    path: login
+    controller: App\Controller\Web\LoginController::login
+    methods: [GET, POST]
+
+logout:
+    path: logout
+    controller: App\Controller\Web\LoginController::logout
+    methods: GET

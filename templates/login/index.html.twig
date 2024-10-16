@@ -7,29 +7,32 @@
         <div class="col-md-4 col-md-push-4">
           <div class="box box-info">
             <div class="box-header with-border"><h3>Log in</h3></div>
-            {# {% for alert in alerts %}
-                <div class="alert alert-danger">
-                  <p> #}{# error #}{# </p>
-                </div>
-              {% endfor %} #}
+
+            {% if error %}
+              {#{% if app.debug %}
+                <div class="alert alert-info" style="margin: 1rem;">{{ error.message }}</div>
+              {% endif %}#}
+              <div class="alert alert-danger" style="margin: 1rem;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
             <form id="login-form" class="form-horizontal" method="post" role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="email" class="col-sm-2">E-Mail</label>
+                  <label for="username" class="col-sm-2">E-Mail</label>
                   <div class="col-xs-12">
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email">
+                    <input type="text" id="username" name="_username" class="form-control" placeholder="Email" value="{{ last_username }}" required>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="password" class="col-sm-2">Password</label>
                   <div class="col-xs-12">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                    <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required>
                   </div>
                 </div>
               </div>
               <div class="box-footer">
-                {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
-                <button class="btn btn-success pull-right" type="submit">Login</button>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button class="btn btn-primary pull-right" type="submit">Login</button>
               </div>
             </form>
           </div>

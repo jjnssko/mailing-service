@@ -42,7 +42,7 @@ class EmailProcessLog
         return $this->emailReceiver;
     }
 
-    public function setEmailReceiver(?EmailReceivers $emailReceiver): static
+    public function setEmailReceiver(?EmailReceivers $emailReceiver): self
     {
         $this->emailReceiver = $emailReceiver;
 
@@ -54,7 +54,7 @@ class EmailProcessLog
         return $this->senderEmail;
     }
 
-    public function setSenderEmail(string $senderEmail): static
+    public function setSenderEmail(string $senderEmail): self
     {
         $this->senderEmail = $senderEmail;
 
@@ -66,7 +66,7 @@ class EmailProcessLog
         return $this->subject;
     }
 
-    public function setSubject(string $subject): static
+    public function setSubject(string $subject): self
     {
         $this->subject = $subject;
 
@@ -78,7 +78,7 @@ class EmailProcessLog
         return $this->body;
     }
 
-    public function setBody(string $body): static
+    public function setBody(string $body): self
     {
         $this->body = $body;
 
@@ -90,7 +90,7 @@ class EmailProcessLog
         return $this->responseStatus;
     }
 
-    public function setResponseStatus(string $responseStatus): static
+    public function setResponseStatus(string $responseStatus): self
     {
         $this->responseStatus = $responseStatus;
 
@@ -102,7 +102,7 @@ class EmailProcessLog
         return $this->errorMessage;
     }
 
-    public function setErrorMessage(?string $errorMessage): static
+    public function setErrorMessage(?string $errorMessage): self
     {
         $this->errorMessage = $errorMessage;
 

@@ -41,7 +41,7 @@ class EmailReceivers
         return $this->userToken;
     }
 
-    public function setUserToken(?UserToken $userToken): static
+    public function setUserToken(?UserToken $userToken): self
     {
         $this->userToken = $userToken;
 
@@ -53,7 +53,7 @@ class EmailReceivers
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -68,7 +68,7 @@ class EmailReceivers
         return $this->emailProcessLogs;
     }
 
-    public function addEmailProcessLog(EmailProcessLog $emailProcessLog): static
+    public function addEmailProcessLog(EmailProcessLog $emailProcessLog): self
     {
         if (!$this->emailProcessLogs->contains($emailProcessLog)) {
             $this->emailProcessLogs->add($emailProcessLog);
@@ -78,7 +78,7 @@ class EmailReceivers
         return $this;
     }
 
-    public function removeEmailProcessLog(EmailProcessLog $emailProcessLog): static
+    public function removeEmailProcessLog(EmailProcessLog $emailProcessLog): self
     {
         if ($this->emailProcessLogs->removeElement($emailProcessLog)) {
             // set the owning side to null (unless already changed)

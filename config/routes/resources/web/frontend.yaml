@@ -1,0 +1,14 @@
+dashboard:
+    path: /
+    controller: App\Controller\Web\DashboardController::index
+    methods: GET
+
+adminLteDemo:
+    path: admin-lte-demo
+    controller: App\Controller\Web\DashboardController::adminLteDemo
+    methods: GET
+
+user:
+    path: /users
+    controller: App\Controller\Web\UserController::list
+    methods: GET

@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+web:
+    resource: "routes/resources/web/*.yaml"
+    name_prefix: web_
+    prefix: /

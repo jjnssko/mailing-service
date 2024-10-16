@@ -116,7 +116,7 @@ class UserToken
         return $this->emailReceivers;
     }
 
-    public function addEmailReceiverId(EmailReceivers $emailReceivers): static
+    public function addEmailReceiverId(EmailReceivers $emailReceivers): self
     {
         if (!$this->emailReceivers->contains($emailReceivers)) {
             $this->emailReceivers->add($emailReceivers);
@@ -126,7 +126,7 @@ class UserToken
         return $this;
     }
 
-    public function removeEmailReceiverId(EmailReceivers $emailReceivers): static
+    public function removeEmailReceiverId(EmailReceivers $emailReceivers): self
     {
         if ($this->emailReceivers->removeElement($emailReceivers)) {
             // set the owning side to null (unless already changed)
