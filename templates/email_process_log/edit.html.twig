@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Edit EmailProcessLog{% endblock %}
+
+{% block content %}
+    <h1>Edit EmailProcessLog</h1>
+
+    {{ include('email_process_log/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_email_process_log_index') }}">back to list</a>
+
+    {{ include('email_process_log/_delete_form.html.twig') }}
+{% endblock %}

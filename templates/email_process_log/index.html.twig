@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}EmailProcessLog index{% endblock %}
+
+{% block content %}
+    <h1>EmailProcessLog index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SenderEmail</th>
+                <th>Subject</th>
+                <th>Body</th>
+                <th>ResponseStatus</th>
+                <th>ErrorMessage</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for email_process_log in email_process_logs %}
+            <tr>
+                <td>{{ email_process_log.id }}</td>
+                <td>{{ email_process_log.senderEmail }}</td>
+                <td>{{ email_process_log.subject }}</td>
+                <td>{{ email_process_log.body }}</td>
+                <td>{{ email_process_log.responseStatus }}</td>
+                <td>{{ email_process_log.errorMessage }}</td>
+                <td>
+                    <a href="{{ path('app_email_process_log_show', {'id': email_process_log.id}) }}">show</a>
+                    <a href="{{ path('app_email_process_log_edit', {'id': email_process_log.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_email_process_log_new') }}">Create new</a>
+{% endblock %}

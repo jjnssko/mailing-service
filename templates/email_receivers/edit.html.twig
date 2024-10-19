@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Edit EmailReceivers{% endblock %}
+
+{% block content %}
+    <h1>Edit EmailReceivers</h1>
+
+    {{ include('email_receivers/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_email_receivers_index') }}">back to list</a>
+
+    {{ include('email_receivers/_delete_form.html.twig') }}
+{% endblock %}

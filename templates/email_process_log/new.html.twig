@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}New EmailProcessLog{% endblock %}
+
+{% block content %}
+    <h1>Create new EmailProcessLog</h1>
+
+    {{ include('email_process_log/_form.html.twig') }}
+
+    <a href="{{ path('app_email_process_log_index') }}">back to list</a>
+{% endblock %}

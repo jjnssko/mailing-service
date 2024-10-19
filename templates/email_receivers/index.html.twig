@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}EmailReceivers index{% endblock %}
+
+{% block content %}
+    <h1>EmailReceivers index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for email_receiver in email_receivers %}
+            <tr>
+                <td>{{ email_receiver.id }}</td>
+                <td>{{ email_receiver.email }}</td>
+                <td>
+                    <a href="{{ path('app_email_receivers_show', {'id': email_receiver.id}) }}">show</a>
+                    <a href="{{ path('app_email_receivers_edit', {'id': email_receiver.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_email_receivers_new') }}">Create new</a>
+{% endblock %}

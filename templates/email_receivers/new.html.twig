@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}New EmailReceivers{% endblock %}
+
+{% block content %}
+    <h1>Create new EmailReceivers</h1>
+
+    {{ include('email_receivers/_form.html.twig') }}
+
+    <a href="{{ path('app_email_receivers_index') }}">back to list</a>
+{% endblock %}

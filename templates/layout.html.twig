@@ -55,13 +55,16 @@
           </div>
         </div>
         <ul class="sidebar-menu" data-widget="tree">
+
           <li class="header">MAIN NAVIGATION</li>
+
           <li class="{% if route_name matches '{^web_dashboard}' %}active{% endif%}">
             <a href="{{ path('web_dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
           </li>
-          <li class="{% if route_name matches '{^web_dashboard}' %}active{% endif%}">
+          <li>
             <a href="https://adminlte.io/themes/AdminLTE/index2.html#" target="_blank"><i class="fa fa-dashboard"></i> <span>Demo</span></a>
           </li>
+
           <li class="treeview {% if route_name matches '{^app_user}' %}active{% endif%}">
             <a href="#">
               <i class="fa fa-users"></i> <span>Users</span>
@@ -75,7 +78,49 @@
               </li>
             </ul>
           </li>
-          <li class="treeview">
+
+          <li class="treeview {% if route_name matches '{^app_user_token}' %}active{% endif%}">
+            <a href="#">
+              <i class="fa fa-users"></i> <span>User Token</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+              <li {% if route_name matches '{app_user_token_index}' %}class="active"{% endif %}>
+                <a href="{{ path('app_user_token_index') }}"><i class="fa fa-circle-o"></i> List</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="treeview {% if route_name matches '{^app_email_receivers}' %}active{% endif%}">
+            <a href="#">
+              <i class="fa fa-users"></i> <span>Email Receivers</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+              <li {% if route_name matches '{app_email_receivers_index}' %}class="active"{% endif %}>
+                <a href="{{ path('app_email_receivers_index') }}"><i class="fa fa-circle-o"></i> List</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="treeview {% if route_name matches '{^app_email_process_log_index}' %}active{% endif%}">
+            <a href="#">
+              <i class="fa fa-users"></i> <span>Email Process Log</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+              <li {% if route_name matches '{app_email_process_log_index}' %}class="active"{% endif %}>
+                <a href="{{ path('app_email_process_log_index') }}"><i class="fa fa-circle-o"></i> List</a>
+              </li>
+            </ul>
+          </li>
+          {#<li class="treeview">
             <a href="#">
               <i class="fa fa-share"></i> <span>Multilevel</span>
               <span class="pull-right-container">
@@ -107,7 +152,7 @@
               </li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
             </ul>
-          </li>
+          </li>#}
         </ul>
       </section>
     </aside>
@@ -118,7 +163,7 @@
           Dashboard
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#">Home</a></li>
+          <li><a href="{{ path('web_dashboard') }}">Home</a></li>
           <li class="active">Dashboard</li>
         </ol>
       </section>

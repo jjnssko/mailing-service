@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}EmailProcessLog{% endblock %}
+
+{% block content %}
+    <h1>EmailProcessLog</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ email_process_log.id }}</td>
+            </tr>
+            <tr>
+                <th>SenderEmail</th>
+                <td>{{ email_process_log.senderEmail }}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ email_process_log.subject }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ email_process_log.body }}</td>
+            </tr>
+            <tr>
+                <th>ResponseStatus</th>
+                <td>{{ email_process_log.responseStatus }}</td>
+            </tr>
+            <tr>
+                <th>ErrorMessage</th>
+                <td>{{ email_process_log.errorMessage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_email_process_log_index') }}">back to list</a>
+
+    <a href="{{ path('app_email_process_log_edit', {'id': email_process_log.id}) }}">edit</a>
+
+    {{ include('email_process_log/_delete_form.html.twig') }}
+{% endblock %}
