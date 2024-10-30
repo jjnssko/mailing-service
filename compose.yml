@@ -42,12 +42,14 @@ services:
     ports:
       - "${ADMINER_PORT}:8080"
 
-  mailhog:
-    container_name: ${COMPOSE_PROJECT_NAME}_mailhog
-    image: mailhog/mailhog
+  mailer:
+    container_name: ${COMPOSE_PROJECT_NAME}_mailer
+    image: axllent/mailpit
     ports:
       - "1025:1025"
       - "8025:8025"
+    env_file:
+      - .env
 
 volumes:
   mailing_service:
