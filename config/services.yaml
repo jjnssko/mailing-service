@@ -1,9 +1,16 @@
 parameters:
+    corsAllowOrigin: "%env(CORS_ALLOW_ORIGIN)%"
+    mailSenderName: "%env(MAIL_SENDER_NAME)%"
+    mailSenderAddress: "%env(MAIL_SENDER_ADDRESS)%"
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $corsAllowOrigin: '%corsAllowOrigin%'
+            $mailSenderName: '%mailSenderName%'
+            $mailSenderAddress: '%mailSenderAddress%'
 
     App\:
         resource: '../src/'
@@ -11,3 +18,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\EventListener\Api\RequestListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

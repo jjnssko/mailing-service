@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\EmailReceivers;
+use App\Entity\EmailReceiver;
 use App\Entity\UserToken;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -25,7 +25,7 @@ class EmailReceiversType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => EmailReceivers::class,
+            'data_class' => EmailReceiver::class,
         ]);
     }
 }

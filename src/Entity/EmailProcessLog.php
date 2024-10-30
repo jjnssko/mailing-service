@@ -15,7 +15,8 @@ class EmailProcessLog
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'emailProcessLogs')]
-    private ?EmailReceivers $emailReceiver = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?UserToken $userToken = null;
 
     #[ORM\Column(length: 255)]
     private ?string $senderName = null;
@@ -38,18 +39,6 @@ class EmailProcessLog
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmailReceiver(): ?EmailReceivers
-    {
-        return $this->emailReceiver;
-    }
-
-    public function setEmailReceiver(?EmailReceivers $emailReceiver): self
-    {
-        $this->emailReceiver = $emailReceiver;
-
-        return $this;
     }
 
     public function getSenderName(): ?string
@@ -120,6 +109,18 @@ class EmailProcessLog
     public function setErrorMessage(?string $errorMessage): self
     {
         $this->errorMessage = $errorMessage;
+
+        return $this;
+    }
+
+    public function getUserToken(): ?UserToken
+    {
+        return $this->userToken;
+    }
+
+    public function setUserToken(?UserToken $userToken): self
+    {
+        $this->userToken = $userToken;
 
         return $this;
     }

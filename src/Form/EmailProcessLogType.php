@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\EmailProcessLog;
-use App\Entity\EmailReceivers;
+use App\Entity\EmailReceiver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +20,7 @@ class EmailProcessLogType extends AbstractType
             ->add('responseStatus')
             ->add('errorMessage')
             ->add('emailReceiver', EntityType::class, [
-                'class' => EmailReceivers::class,
+                'class' => EmailReceiver::class,
                 'choice_label' => 'id',
             ])
         ;
