@@ -3,14 +3,28 @@
 namespace App\Repository;
 
 use App\Entity\UserToken;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Enum\TokenTypes;
 use Doctrine\Persistence\ManagerRegistry;
 
-/** @extends ServiceEntityRepository<UserToken> */
-class UserTokenRepository extends ServiceEntityRepository
+class UserTokenRepository extends AbstractBaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserToken::class);
+    }
+
+    public function findUserTokenByAccessToken(string $accessToken, string $relatedUrl): ?UserToken
+    {
+        return $this->findOneBy([
+            'type' => TokenTypes::ACCESS_TOKEN,
+            'relatedUrl' => $relatedUrl,
+            'token' => $accessToken,
+        ]);
+    }
+
+    public function updateLastTokenUsage(UserToken $userToken): void
+    {
+        $userToken->setLastUsage(new \DateTime('now'));
+        $this->save($userToken);
     }
 }
