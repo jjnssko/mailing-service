@@ -18,6 +18,9 @@ class EmailProcessLog
     private ?EmailReceivers $emailReceiver = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $senderName = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $senderEmail = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -27,7 +30,7 @@ class EmailProcessLog
     private ?string $body = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $responseStatus = null;
+    private ?int $responseCode = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $errorMessage = null;
@@ -45,6 +48,18 @@ class EmailProcessLog
     public function setEmailReceiver(?EmailReceivers $emailReceiver): self
     {
         $this->emailReceiver = $emailReceiver;
+
+        return $this;
+    }
+
+    public function getSenderName(): ?string
+    {
+        return $this->senderName;
+    }
+
+    public function setSenderName(?string $senderName): self
+    {
+        $this->senderName = $senderName;
 
         return $this;
     }
@@ -85,14 +100,14 @@ class EmailProcessLog
         return $this;
     }
 
-    public function getResponseStatus(): ?string
+    public function getResponseCode(): int
     {
-        return $this->responseStatus;
+        return $this->responseCode;
     }
 
-    public function setResponseStatus(string $responseStatus): self
+    public function setResponseCode(int $responseCode): self
     {
-        $this->responseStatus = $responseStatus;
+        $this->responseCode = $responseCode;
 
         return $this;
     }
