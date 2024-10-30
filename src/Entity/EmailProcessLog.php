@@ -18,6 +18,9 @@ class EmailProcessLog
     private ?EmailReceivers $emailReceiver = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $senderName = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $senderEmail = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -27,7 +30,7 @@ class EmailProcessLog
     private ?string $body = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $responseStatus = null;
+    private ?int $responseCode = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $errorMessage = null;
@@ -42,9 +45,21 @@ class EmailProcessLog
         return $this->emailReceiver;
     }
 
-    public function setEmailReceiver(?EmailReceivers $emailReceiver): static
+    public function setEmailReceiver(?EmailReceivers $emailReceiver): self
     {
         $this->emailReceiver = $emailReceiver;
+
+        return $this;
+    }
+
+    public function getSenderName(): ?string
+    {
+        return $this->senderName;
+    }
+
+    public function setSenderName(?string $senderName): self
+    {
+        $this->senderName = $senderName;
 
         return $this;
     }
@@ -54,7 +69,7 @@ class EmailProcessLog
         return $this->senderEmail;
     }
 
-    public function setSenderEmail(string $senderEmail): static
+    public function setSenderEmail(string $senderEmail): self
     {
         $this->senderEmail = $senderEmail;
 
@@ -66,7 +81,7 @@ class EmailProcessLog
         return $this->subject;
     }
 
-    public function setSubject(string $subject): static
+    public function setSubject(string $subject): self
     {
         $this->subject = $subject;
 
@@ -78,21 +93,21 @@ class EmailProcessLog
         return $this->body;
     }
 
-    public function setBody(string $body): static
+    public function setBody(string $body): self
     {
         $this->body = $body;
 
         return $this;
     }
 
-    public function getResponseStatus(): ?string
+    public function getResponseCode(): int
     {
-        return $this->responseStatus;
+        return $this->responseCode;
     }
 
-    public function setResponseStatus(string $responseStatus): static
+    public function setResponseCode(int $responseCode): self
     {
-        $this->responseStatus = $responseStatus;
+        $this->responseCode = $responseCode;
 
         return $this;
     }
@@ -102,7 +117,7 @@ class EmailProcessLog
         return $this->errorMessage;
     }
 
-    public function setErrorMessage(?string $errorMessage): static
+    public function setErrorMessage(?string $errorMessage): self
     {
         $this->errorMessage = $errorMessage;
 
