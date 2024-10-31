@@ -1,0 +1,4 @@
+submit:
+    path: submit
+    controller: App\Controller\Api\EmailController::submit
+    methods: POST
