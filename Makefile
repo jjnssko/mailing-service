@@ -14,23 +14,21 @@ COLOR_COMMENT = \033[33m
 .PHONY: help
 help:
 	@printf "\n${COLOR_COMMENT}Usage:${COLOR_RESET}\n"
-	@printf "  make [target]\n"
+	@printf "make [target]\n"
 	@printf "${COLOR_COMMENT}Available targets:${COLOR_RESET}\n"
-	@awk '/^[^\.][a-zA-Z/\-_0-9\.@]+:/ { \
-		if (substr(lastLine, 0, 1) == ".") { \
+	@awk '/^[^.#][a-zA-Z0-9_\/\-.@]*:/ { \
+		if (substr(lastLine, 1, 1) == ".") { \
 			lastLine = prevToLastLine; \
 		} \
 		helpMessage = match(lastLine, /^## (.*)/); \
 		if (helpMessage) { \
-			helpCommand = substr($$1, 0, index($$1, ":")); \
+			helpCommand = substr($$1, 1, index($$1, ":") - 1); \
 			helpMessage = substr(lastLine, RSTART + 3, RLENGTH); \
 			printf "  ${COLOR_INFO}%-20s${COLOR_RESET} %s\n", helpCommand, helpMessage; \
 		} \
 	} \
 	{ prevToLastLine = lastLine } \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
-
-
 
 ## Encrypt PRIVATE folder into private.zip
 .PHONY: hide
@@ -77,6 +75,11 @@ run:
 .PHONY: console
 console:
 	docker exec -it ${COMPOSE_PROJECT_NAME}_php-fpm bash
+
+## Doctrine migration to the latest version
+.PHONY: migrate
+migrate:
+	docker exec -i ${COMPOSE_PROJECT_NAME}_php-fpm bin/console doctrine:migrations:migrate --no-interaction
 
 
 ## Initialize project to run on localhost, specified port in .env

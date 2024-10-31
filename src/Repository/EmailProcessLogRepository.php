@@ -3,11 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\EmailProcessLog;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/** @extends ServiceEntityRepository<EmailProcessLog> */
-class EmailProcessLogRepository extends ServiceEntityRepository
+class EmailProcessLogRepository extends AbstractBaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

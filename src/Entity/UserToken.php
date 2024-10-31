@@ -32,15 +32,18 @@ class UserToken
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastUsage = null;
 
-    /**
-     * @var Collection<int, EmailReceivers>
-     */
-    #[ORM\OneToMany(targetEntity: EmailReceivers::class, mappedBy: 'userToken')]
+    /** @var Collection<int, EmailReceiver> */
+    #[ORM\OneToMany(targetEntity: EmailReceiver::class, mappedBy: 'userToken')]
     private Collection $emailReceivers;
+
+    /** @var Collection<int, EmailProcessLog> */
+    #[ORM\OneToMany(targetEntity: EmailProcessLog::class, mappedBy: 'userToken', orphanRemoval: true)]
+    private Collection $emailProcessLogs;
 
     public function __construct()
     {
         $this->emailReceivers = new ArrayCollection();
+        $this->emailProcessLogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,15 +111,13 @@ class UserToken
         return $this;
     }
 
-    /**
-     * @return Collection<int, EmailReceivers>
-     */
+    /** @return Collection<int, EmailReceiver> */
     public function getEmailReceivers(): Collection
     {
         return $this->emailReceivers;
     }
 
-    public function addEmailReceiverId(EmailReceivers $emailReceivers): self
+    public function addEmailReceiverId(EmailReceiver $emailReceivers): self
     {
         if (!$this->emailReceivers->contains($emailReceivers)) {
             $this->emailReceivers->add($emailReceivers);
@@ -126,12 +127,38 @@ class UserToken
         return $this;
     }
 
-    public function removeEmailReceiverId(EmailReceivers $emailReceivers): self
+    public function removeEmailReceiverId(EmailReceiver $emailReceivers): self
     {
         if ($this->emailReceivers->removeElement($emailReceivers)) {
-            // set the owning side to null (unless already changed)
             if ($emailReceivers->getUserToken() === $this) {
                 $emailReceivers->setUserToken(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /** @return Collection<int, EmailProcessLog> */
+    public function getEmailProcessLogs(): Collection
+    {
+        return $this->emailProcessLogs;
+    }
+
+    public function addEmailProcessLog(EmailProcessLog $emailProcessLog): self
+    {
+        if (!$this->emailProcessLogs->contains($emailProcessLog)) {
+            $this->emailProcessLogs->add($emailProcessLog);
+            $emailProcessLog->setUserToken($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmailProcessLog(EmailProcessLog $emailProcessLog): self
+    {
+        if ($this->emailProcessLogs->removeElement($emailProcessLog)) {
+            if ($emailProcessLog->getUserToken() === $this) {
+                $emailProcessLog->setUserToken(null);
             }
         }
 

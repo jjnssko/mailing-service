@@ -15,7 +15,11 @@ class EmailProcessLog
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'emailProcessLogs')]
-    private ?EmailReceivers $emailReceiver = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?UserToken $userToken = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $senderName = null;
 
     #[ORM\Column(length: 255)]
     private ?string $senderEmail = null;
@@ -27,7 +31,7 @@ class EmailProcessLog
     private ?string $body = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $responseStatus = null;
+    private ?int $responseCode = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $errorMessage = null;
@@ -37,14 +41,14 @@ class EmailProcessLog
         return $this->id;
     }
 
-    public function getEmailReceiver(): ?EmailReceivers
+    public function getSenderName(): ?string
     {
-        return $this->emailReceiver;
+        return $this->senderName;
     }
 
-    public function setEmailReceiver(?EmailReceivers $emailReceiver): self
+    public function setSenderName(?string $senderName): self
     {
-        $this->emailReceiver = $emailReceiver;
+        $this->senderName = $senderName;
 
         return $this;
     }
@@ -85,14 +89,14 @@ class EmailProcessLog
         return $this;
     }
 
-    public function getResponseStatus(): ?string
+    public function getResponseCode(): int
     {
-        return $this->responseStatus;
+        return $this->responseCode;
     }
 
-    public function setResponseStatus(string $responseStatus): self
+    public function setResponseCode(int $responseCode): self
     {
-        $this->responseStatus = $responseStatus;
+        $this->responseCode = $responseCode;
 
         return $this;
     }
@@ -105,6 +109,18 @@ class EmailProcessLog
     public function setErrorMessage(?string $errorMessage): self
     {
         $this->errorMessage = $errorMessage;
+
+        return $this;
+    }
+
+    public function getUserToken(): ?UserToken
+    {
+        return $this->userToken;
+    }
+
+    public function setUserToken(?UserToken $userToken): self
+    {
+        $this->userToken = $userToken;
 
         return $this;
     }
