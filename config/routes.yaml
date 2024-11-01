@@ -8,8 +8,3 @@ api:
     resource: "routes/resources/api/*.yaml"
     name_prefix: api_
     prefix: /
-
-web:
-    resource: "routes/resources/web/*.yaml"
-    name_prefix: web_
-    prefix: /
