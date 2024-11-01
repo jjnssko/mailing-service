@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BaseApiController extends AbstractController
 {
+    public function index(): JsonResponse
+    {
+        return $this->successResponse();
+    }
+
     /** @param mixed[] $data */
     public function successResponse(array $data = [], int $status = Response::HTTP_OK): JsonResponse
     {

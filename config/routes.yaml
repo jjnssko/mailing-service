@@ -8,3 +8,8 @@ api:
     resource: "routes/resources/api/*.yaml"
     name_prefix: api_
     prefix: /
+
+index:
+    path: /
+    controller: App\Controller\BaseApiController::index
+    methods: GET
