@@ -30,4 +30,11 @@ readonly class RequestValidator
             throw new InvalidRequestOriginException('Invalid request referer');
         }
     }
+
+    public function validateHonepot(Request $request, string $token): void
+    {
+        if ($request->getPayload()->get($token) !== '0') {
+            throw new \RuntimeException('Something went wrong');
+        }
+    }
 }

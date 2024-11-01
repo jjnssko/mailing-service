@@ -11,6 +11,7 @@ use App\Exception\ValidationException;
 use App\Factory\EmailFactory;
 use App\Service\EmailProcessor;
 use App\Service\EmailReceiverService;
+use App\Service\RequestValidator;
 use App\Service\UserTokenValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,7 @@ final class EmailController extends BaseApiController
         private readonly MailerInterface $mailer,
         private readonly UserTokenValidator $userTokenValidator,
         private readonly EmailReceiverService $emailReceiverService,
+        private readonly RequestValidator $requestValidator,
     )
     {
     }
@@ -37,6 +39,8 @@ final class EmailController extends BaseApiController
         try {
             $this->userTokenValidator->validatePayload($payload);
             $userToken = $this->userTokenValidator->getValidatedUserAccessToken($payload[RequiredFormFields::ACCESS_KEY], $headers->get('host'));
+            $this->requestValidator->validateHonepot($request, $userToken->getToken());
+            unset($payload[$userToken->getToken()]);
         } catch (\Throwable $e) {
             return $this->errorResponse(['message' => $e->getMessage()]);
         }
