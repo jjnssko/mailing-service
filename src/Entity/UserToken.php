@@ -29,7 +29,7 @@ class UserToken
     #[ORM\Column(length: 255)]
     private ?string $token = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastUsage = null;
 
     /** @var Collection<int, EmailReceiver> */

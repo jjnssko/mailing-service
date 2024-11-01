@@ -24,7 +24,7 @@ class UserTokenRepository extends AbstractBaseRepository
 
     public function updateLastTokenUsage(UserToken $userToken): void
     {
-        $userToken->setLastUsage(new \DateTime('now'));
+        $userToken->setLastUsage(new \DateTimeImmutable('now'));
         $this->save($userToken);
     }
 }
