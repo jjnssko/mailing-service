@@ -34,11 +34,12 @@ final class EmailController extends BaseApiController
         $payload = iterator_to_array($request->getPayload());
         $headers = $request->headers;
 
-        if (false === array_key_exists(RequiredFormFields::ACCESS_KEY, $payload)) {
-            return $this->errorResponse(['message' => 'Submitted data missing "access_key"']);
+        try {
+            $this->userTokenValidator->validatePayload($payload);
+            $userToken = $this->userTokenValidator->getValidatedUserAccessToken($payload[RequiredFormFields::ACCESS_KEY], $headers->get('host'));
+        } catch (\Throwable $e) {
+            return $this->errorResponse(['message' => $e->getMessage()]);
         }
-
-        $userToken = $this->userTokenValidator->getValidatedUserAccessToken($payload[RequiredFormFields::ACCESS_KEY], $headers->get('host'));
 
         try {
             $dto = EmailSubmitDto::fromArray($payload);

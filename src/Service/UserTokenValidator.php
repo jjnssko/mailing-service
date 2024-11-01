@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\UserToken;
+use App\Enum\RequiredFormFields;
 use App\Exception\ValidationException;
 use App\Repository\UserTokenRepository;
 
@@ -14,6 +15,15 @@ final readonly class UserTokenValidator
         private UserTokenRepository $userTokenRepository,
     )
     {
+    }
+
+    public function validatePayload(array $payload): void
+    {
+        if (false === array_key_exists(RequiredFormFields::ACCESS_KEY, $payload)) {
+            throw new ValidationException(
+                sprintf('%s "%s"', 'Submitted data missing', RequiredFormFields::ACCESS_KEY)
+            );
+        }
     }
 
     public function getValidatedUserAccessToken(string $accessToken, string $relatedUrl): UserToken
