@@ -80,13 +80,9 @@ yarn-error.log
 ###< squizlabs/php_codesniffer ###
 
 ###> project ###
-credentials.json
 public/uploads/*
 !public/uploads/.gitkeep
-!public/uploads/contracts/
-public/uploads/contracts/*
-!public/uploads/contracts/.gitkeep
-crontab
+public/favicon.ico
 ###< project ###
 
 ###> phpunit/phpunit ###

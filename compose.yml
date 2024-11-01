@@ -20,6 +20,7 @@ services:
       dockerfile: docker/php.dockerfile
     env_file:
       - .env
+      - .env.local
     volumes:
       - ./:/var/www/html
       - ./docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
