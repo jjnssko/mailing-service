@@ -15,6 +15,11 @@ class BaseApiController extends AbstractController
         return $this->successResponse();
     }
 
+    public function health(): JsonResponse
+    {
+        return $this->successResponse();
+    }
+
     /** @param mixed[] $data */
     public function successResponse(array $data = [], int $status = Response::HTTP_OK): JsonResponse
     {

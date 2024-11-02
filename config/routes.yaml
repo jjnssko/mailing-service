@@ -13,3 +13,8 @@ index:
     path: /
     controller: App\Controller\BaseApiController::index
     methods: GET
+
+health:
+    path: /health
+    controller: App\Controller\BaseApiController::health
+    methods: GET
