@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Exception\Api\InvalidRequestOriginException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 readonly class RequestValidator
 {
@@ -16,24 +17,16 @@ readonly class RequestValidator
     }
 
     /** @throws InvalidRequestOriginException */
-    public function validateOrigin(Request $request): void
+    public function validateOriginHeader(string $originHeader): void
     {
-        $origin = $request->headers->get('Origin');
-        $referer = $request->headers->get('Referer');
-        $regex = $this->corsAllowOrigin;
-
-        if (null === $origin || !preg_match($regex, $origin)) {
-            throw new InvalidRequestOriginException('Invalid request origin');
-        }
-
-        if (null === $referer || !str_contains($referer, $request->getSchemeAndHttpHost())) {
-            throw new InvalidRequestOriginException('Invalid request referer');
+        if (!preg_match($this->corsAllowOrigin . '^', $originHeader)) {
+            throw new InvalidRequestOriginException('Forbidden', Response::HTTP_FORBIDDEN);
         }
     }
 
     public function validateHonepot(Request $request, string $token): void
     {
-        if ($request->getPayload()->get($token) !== '0') {
+        if ($request->getPayload()->get($token) !== null) {
             throw new \RuntimeException('Something went wrong');
         }
     }

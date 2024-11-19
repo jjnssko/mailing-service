@@ -6,6 +6,8 @@ namespace App\Service;
 
 use App\Entity\EmailProcessLog;
 use App\Entity\UserToken;
+use App\Enum\OptionalFormFields;
+use App\Enum\RequiredFormFields;
 use App\Repository\EmailProcessLogRepository;
 
 final readonly class EmailProcessor
@@ -20,10 +22,10 @@ final readonly class EmailProcessor
     {
         $emailProcessLog = (new EmailProcessLog())
             ->setUserToken($userToken)
-            ->setSenderName($data['name'])
-            ->setSenderEmail($data['email'])
-            ->setSubject($data['subject'])
-            ->setBody($data['body'])
+            ->setSenderName($data[RequiredFormFields::NAME])
+            ->setSenderEmail($data[RequiredFormFields::EMAIL])
+            ->setSubject($data[OptionalFormFields::SUBJECT])
+            ->setBody($data[RequiredFormFields::MESSAGE])
             ->setResponseCode($responseStatus)
             ->setErrorMessage($errorMessage);
 

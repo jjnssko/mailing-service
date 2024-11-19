@@ -21,11 +21,13 @@ final class EmailSubmitValidator
     public function validate(array $data): array
     {
         $constraints = new Assert\Collection([
-            RequiredFormFields::ACCESS_KEY => [new Assert\NotBlank()],
-            RequiredFormFields::NAME => [new Assert\NotBlank()],
-            RequiredFormFields::EMAIL => [new Assert\Email()],
-            RequiredFormFields::SUBJECT => [new Assert\NotBlank()],
-            RequiredFormFields::BODY => [new Assert\NotBlank()],
+            'fields' => [
+                RequiredFormFields::ACCESS_KEY => [new Assert\NotBlank()],
+                RequiredFormFields::NAME => [new Assert\NotBlank()],
+                RequiredFormFields::EMAIL => [new Assert\Email()],
+                RequiredFormFields::MESSAGE => [new Assert\NotBlank()],
+            ],
+            'allowExtraFields' => true,
         ]);
 
         $violations = $this->validator->validate($data, $constraints);

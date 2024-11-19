@@ -12,7 +12,5 @@ final class RequiredFormFields
 
     public const EMAIL = 'email';
 
-    public const SUBJECT = 'subject';
-
-    public const BODY = 'body';
+    public const MESSAGE = 'message';
 }

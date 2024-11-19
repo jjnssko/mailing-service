@@ -20,14 +20,15 @@ readonly class RequestListener
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
+        $routeName = $request->attributes->get('_route') ?? '';
+        if (false === str_starts_with($routeName, 'api_')) {
+            return;
+        }
 
-        $requestedRoute = $request->attributes->get('_route');
-        if ($requestedRoute !== null && str_contains($requestedRoute, 'api_')) {
-            try {
-                $this->requestValidator->validateOrigin($request);
-            } catch (HttpExceptionInterface $e) {
-                $this->setJsonResponse($event, $e->getMessage(), $e->getStatusCode());
-            }
+        try {
+            $this->requestValidator->validateOriginHeader($request->headers->get('Origin') ?? '');
+        } catch (HttpExceptionInterface $e) {
+            $this->setJsonResponse($event, $e->getMessage(), $e->getStatusCode());
         }
     }
 

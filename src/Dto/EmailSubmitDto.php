@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
+use App\Enum\OptionalFormFields;
 use App\Enum\RequiredFormFields;
 use App\Exception\ValidationException;
 use App\Validator\EmailSubmitValidator;
@@ -108,12 +109,21 @@ final class EmailSubmitDto
             );
         }
 
+        if (false === self::isOptionalSubjectProvided($data)) {
+            $data[OptionalFormFields::SUBJECT] = sprintf('New message from %s', $data[RequiredFormFields::EMAIL]);
+        }
+
         return new self(
             $data[RequiredFormFields::ACCESS_KEY],
             $data[RequiredFormFields::NAME],
             $data[RequiredFormFields::EMAIL],
-            $data[RequiredFormFields::SUBJECT],
-            $data[RequiredFormFields::BODY]
+            $data[OptionalFormFields::SUBJECT],
+            $data[RequiredFormFields::MESSAGE]
         );
+    }
+
+    private static function isOptionalSubjectProvided(array $data): bool
+    {
+        return array_key_exists(OptionalFormFields::SUBJECT, $data);
     }
 }

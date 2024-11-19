@@ -40,7 +40,6 @@ final class EmailController extends BaseApiController
             $this->userTokenValidator->validatePayload($payload);
             $userToken = $this->userTokenValidator->getValidatedUserAccessToken($payload[RequiredFormFields::ACCESS_KEY], $headers->get('Origin'));
             $this->requestValidator->validateHonepot($request, $userToken->getToken());
-            unset($payload[$userToken->getToken()]);
         } catch (\Throwable $e) {
             return $this->errorResponse(['message' => $e->getMessage()]);
         }
