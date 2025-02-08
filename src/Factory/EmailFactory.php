@@ -15,7 +15,8 @@ final readonly class EmailFactory
     public function createSubmitEmail(EmailSubmitDto $emailSubmitDto, EmailSender $emailSender): Email
     {
         $senderAddress = sprintf('%s <%s>', $emailSubmitDto->getFullName(), $emailSubmitDto->getEmailAddress());
-        $receiverAddress = sprintf('%s <%s>', $emailSender->getFullName(), $emailSender->getEmail());
+        // TODO fallback
+        $receiverAddress = sprintf('%s <%s>', /*$emailSender->getFullName()*/'JOnas Vysocky', /*$emailSender->getEmail()*/ 'jonas.vysocky@gmail.com');
 
         $email = (new Email())
             ->from(Address::create($receiverAddress))

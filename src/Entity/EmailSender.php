@@ -31,7 +31,7 @@ class EmailSender
     #[ORM\Column(length: 255)]
     private ?string $mailServerPort = null;
 
-    #[ORM\OneToOne(inversedBy: 'emailSender', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: UserToken::class, inversedBy: 'emailSender', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?UserToken $userToken = null;
 
@@ -116,7 +116,7 @@ class EmailSender
         return $this->userToken;
     }
 
-    public function setUserToken(UserToken $userToken): static
+    public function setUserToken(UserToken $userToken): EmailSender
     {
         $this->userToken = $userToken;
 

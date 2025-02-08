@@ -40,7 +40,7 @@ class UserToken
     #[ORM\OneToMany(targetEntity: EmailProcessLog::class, mappedBy: 'userToken', orphanRemoval: true)]
     private Collection $emailProcessLogs;
 
-    #[ORM\OneToOne(mappedBy: 'UserToken', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: EmailSender::class, mappedBy: 'userToken', cascade: ['persist', 'remove'])]
     private ?EmailSender $emailSender = null;
 
     public function __construct()
