@@ -1,7 +1,5 @@
 parameters:
     corsAllowOrigin: "%env(CORS_ALLOW_ORIGIN)%"
-    mailSenderName: "%env(MAIL_SENDER_NAME)%"
-    mailSenderAddress: "%env(MAIL_SENDER_ADDRESS)%"
 
 services:
     _defaults:
@@ -9,8 +7,6 @@ services:
         autoconfigure: true
         bind:
             $corsAllowOrigin: '%corsAllowOrigin%'
-            $mailSenderName: '%mailSenderName%'
-            $mailSenderAddress: '%mailSenderAddress%'
 
     App\:
         resource: '../src/'

@@ -24,7 +24,7 @@ readonly class RequestValidator
         }
     }
 
-    public function validateHonepot(Request $request, string $token): void
+    public function validateHoneypot(Request $request, string $token): void
     {
         if ($request->getPayload()->get($token) !== null) {
             throw new \RuntimeException('Something went wrong');

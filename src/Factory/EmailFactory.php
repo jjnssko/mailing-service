@@ -5,23 +5,17 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Dto\EmailSubmitDto;
+use App\Entity\EmailSender;
 use App\Enum\RequiredFormFields;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 final readonly class EmailFactory
 {
-    public function __construct(
-        private string $mailSenderName,
-        private string $mailSenderAddress,
-    )
-    {
-    }
-
-    public function createSubmitEmail(EmailSubmitDto $emailSubmitDto): Email
+    public function createSubmitEmail(EmailSubmitDto $emailSubmitDto, EmailSender $emailSender): Email
     {
         $senderAddress = sprintf('%s <%s>', $emailSubmitDto->getFullName(), $emailSubmitDto->getEmailAddress());
-        $receiverAddress = sprintf('%s <%s>', $this->mailSenderName, $this->mailSenderAddress);
+        $receiverAddress = sprintf('%s <%s>', $emailSender->getFullName(), $emailSender->getEmail());
 
         $email = (new Email())
             ->from(Address::create($receiverAddress))

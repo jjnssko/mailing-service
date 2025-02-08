@@ -40,6 +40,9 @@ class UserToken
     #[ORM\OneToMany(targetEntity: EmailProcessLog::class, mappedBy: 'userToken', orphanRemoval: true)]
     private Collection $emailProcessLogs;
 
+    #[ORM\OneToOne(mappedBy: 'UserToken', cascade: ['persist', 'remove'])]
+    private ?EmailSender $emailSender = null;
+
     public function __construct()
     {
         $this->emailReceivers = new ArrayCollection();
@@ -161,6 +164,23 @@ class UserToken
                 $emailProcessLog->setUserToken(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmailSender(): ?EmailSender
+    {
+        return $this->emailSender;
+    }
+
+    public function setEmailSender(EmailSender $emailSender): static
+    {
+        // set the owning side of the relation if necessary
+        if ($emailSender->getUserToken() !== $this) {
+            $emailSender->setUserToken($this);
+        }
+
+        $this->emailSender = $emailSender;
 
         return $this;
     }

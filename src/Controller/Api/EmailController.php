@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Controller\BaseApiController;
+use App\Dto\EmailLogData;
 use App\Dto\EmailSubmitDto;
 use App\Enum\RequiredFormFields;
 use App\Exception\ValidationException;
@@ -16,14 +17,12 @@ use App\Service\UserTokenValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 
 final class EmailController extends BaseApiController
 {
     public function __construct(
         private readonly EmailProcessor $emailProcessor,
         private readonly EmailFactory $emailFactory,
-        private readonly MailerInterface $mailer,
         private readonly UserTokenValidator $userTokenValidator,
         private readonly EmailReceiverService $emailReceiverService,
         private readonly RequestValidator $requestValidator,
@@ -34,12 +33,13 @@ final class EmailController extends BaseApiController
     public function submit(Request $request): JsonResponse
     {
         $payload = iterator_to_array($request->getPayload());
+        $logData = EmailLogData::fromArray($payload);
         $headers = $request->headers;
 
         try {
             $this->userTokenValidator->validatePayload($payload);
             $userToken = $this->userTokenValidator->getValidatedUserAccessToken($payload[RequiredFormFields::ACCESS_KEY], $headers->get('Origin'));
-            $this->requestValidator->validateHonepot($request, $userToken->getToken());
+            $this->requestValidator->validateHoneypot($request, $userToken->getToken());
         } catch (\Throwable $e) {
             return $this->errorResponse(['message' => $e->getMessage()]);
         }
@@ -48,18 +48,14 @@ final class EmailController extends BaseApiController
             $dto = EmailSubmitDto::fromArray($payload);
             $emailReceivers = $this->emailReceiverService->getUserReceiversAsArray($userToken->getId());
             $dto->setReceivers($emailReceivers);
-            $email = $this->emailFactory->createSubmitEmail($dto);
-            $this->mailer->send($email);
-            $this->emailProcessor->storeEmailProcessLog(
-                $payload,
-                $userToken,
-                Response::HTTP_OK,
-            );
+            $email = $this->emailFactory->createSubmitEmail($dto, $userToken->getEmailSender());
+
+            $this->emailProcessor->sendEmail($email, $logData, $userToken);
 
             return $this->successResponse();
         } catch (\Throwable $e) {
             $this->emailProcessor->storeEmailProcessLog(
-                $payload,
+                $logData,
                 $userToken,
                 Response::HTTP_BAD_REQUEST,
                 $e instanceof ValidationException ? $e->getLogMessage() : $e->getMessage(),
