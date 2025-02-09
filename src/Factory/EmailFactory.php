@@ -12,11 +12,21 @@ use Symfony\Component\Mime\Email;
 
 final readonly class EmailFactory
 {
+    public function __construct(
+        private string $mailSenderNameFallback,
+        private string $mailSenderEmailFallback,
+    )
+    {
+    }
+
     public function createSubmitEmail(EmailSubmitDto $emailSubmitDto, EmailSender $emailSender): Email
     {
         $senderAddress = sprintf('%s <%s>', $emailSubmitDto->getFullName(), $emailSubmitDto->getEmailAddress());
-        // TODO fallback
-        $receiverAddress = sprintf('%s <%s>', /*$emailSender->getFullName()*/'JOnas Vysocky', /*$emailSender->getEmail()*/ 'jonas.vysocky@gmail.com');
+
+        $senderFullName = $emailSender->getFullName() ?: $this->mailSenderNameFallback;
+        $senderEmail = $emailSender->getEmail() ?: $this->mailSenderEmailFallback;
+
+        $receiverAddress = sprintf('%s <%s>', $senderFullName, $senderEmail);
 
         $email = (new Email())
             ->from(Address::create($receiverAddress))

@@ -1,5 +1,7 @@
 parameters:
     corsAllowOrigin: "%env(CORS_ALLOW_ORIGIN)%"
+    mailSenderNameFallback: "%env(MAIL_SENDER_NAME_FALLBACK)%"
+    mailSenderEmailFallback: "%env(MAIL_SENDER_EMAIL_FALLBACK)%"
 
 services:
     _defaults:
@@ -7,6 +9,8 @@ services:
         autoconfigure: true
         bind:
             $corsAllowOrigin: '%corsAllowOrigin%'
+            $mailSenderNameFallback: '%mailSenderNameFallback%'
+            $mailSenderEmailFallback: '%mailSenderEmailFallback%'
 
     App\:
         resource: '../src/'
