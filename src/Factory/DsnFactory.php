@@ -18,7 +18,7 @@ final readonly class DsnFactory
             '%s://%s:%s@%s:%s',
             $emailSender->getMailProtocol(),
             $emailSender->getEmail(),
-            $emailSender->getPassword(),
+            $emailSender->getPassword(), // TODO decrypt password by ENV key
             $emailSender->getMailServer(),
             $emailSender->getMailServerPort(),
         );
